@@ -13,4 +13,8 @@ export const PagesRoutes: Routes = [
       ],
     },
   },
+  {
+    path: 'data-classifiers',
+    loadChildren: () => import('./data-classifiers/data-classifiers.routes').then(m => m.DataClassifiersRoutes),
+  },
 ];
