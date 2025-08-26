@@ -68,6 +68,14 @@ export const navItems: NavItem[] = [
     navCap: 'Apps',
   },
   {
+    navCap: 'Data',
+  },
+  {
+    displayName: 'Data Classifiers',
+    iconName: 'database-cog',
+    route: '/dashboard/data-classifiers',
+  },
+  {
     displayName: 'Chat',
     iconName: 'message-dots',
     route: 'https://materialpro-angular-main.netlify.app/apps/chat',

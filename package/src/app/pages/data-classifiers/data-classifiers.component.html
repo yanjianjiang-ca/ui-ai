@@ -1,0 +1,148 @@
+<div class="d-flex gap-16">
+  <div class="flex-1-auto">
+    <div class="d-flex align-items-center gap-8 m-b-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Search / Query</mat-label>
+        <input matInput placeholder="Search / Query" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="filteredRows()" class="mat-elevation-z1 w-100">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Classifier Name</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-button color="primary" (click)="onRowClick(row)">{{ row.name }}</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sensitivity">
+        <th mat-header-cell *matHeaderCellDef>Sensitivity</th>
+        <td mat-cell *matCellDef="let row">{{ row.sensitivity }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let row">{{ row.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="policies">
+        <th mat-header-cell *matHeaderCellDef>Policies</th>
+        <td mat-cell *matCellDef="let row">{{ row.policies }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="scans">
+        <th mat-header-cell *matHeaderCellDef>Scans</th>
+        <td mat-cell *matCellDef="let row">{{ row.scans }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef>Created by</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdBy }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdAt }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef>Notes</th>
+        <td mat-cell *matCellDef="let row">{{ row.notes }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="rowMenu" aria-label="Row actions">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClick(row)"></tr>
+    </table>
+
+    <mat-menu #rowMenu="matMenu">
+      <button mat-menu-item (click)="$event.stopPropagation();">View</button>
+      <button mat-menu-item (click)="$event.stopPropagation();">Edit</button>
+      <button mat-menu-item (click)="$event.stopPropagation();">Copy</button>
+      <button mat-menu-item color="warn" (click)="$event.stopPropagation();">Delete</button>
+    </mat-menu>
+  </div>
+
+  <div class="details-panel" *ngIf="selected() as detail">
+    <div class="d-flex align-items-center justify-content-between m-b-12">
+      <h3 class="m-0">Data Classifier Details</h3>
+      <button mat-stroked-button (click)="clearSelection()">Close</button>
+    </div>
+    <div class="text-subtitle-2 m-b-12">Name: {{ detail.name }}</div>
+    <div class="m-b-8">Sensitivity: <strong>{{ detail.sensitivity }}</strong></div>
+    <div class="m-b-8">Classifier Type: <strong>{{ detail.type }}</strong></div>
+    <div class="m-b-8">Logic: <strong>AND</strong></div>
+
+    <mat-divider class="m-y-12"></mat-divider>
+
+    <h4 class="m-t-0">Data Classifications</h4>
+    <mat-accordion>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>PHI</mat-panel-title>
+          <mat-panel-description>Confidential</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>US PHI</div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>United States of America - State Privacy Regulations (1)</mat-panel-title>
+          <mat-panel-description>Confidential</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>California Consumer Privacy Act (CCPA)</div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Simple Custom Data Classifiers (2)</mat-panel-title>
+          <mat-panel-description>Confidential</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>My Second Test Classifier</div>
+        <div>My Third Test Classifier</div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Data Types (8)</mat-panel-title>
+          <mat-panel-description>OR Logic</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="chip-row">
+          <span class="chip">PII: 6 data types</span>
+          <span class="chip">PCI: 2 data types</span>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>AI Classification (4)</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>Finance: Transaction Records, Credit and Risk Management</div>
+        <div>Legal: Contracts and Agreements, Patent</div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Data Fingerprinting - EDM (3)</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>Test Dataset 1 - Rule 3, Rule 4, Rule 8</div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>File Attributes: File Type (5)</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>PDF, DOCX, CSV, JSON, XLSX</div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+

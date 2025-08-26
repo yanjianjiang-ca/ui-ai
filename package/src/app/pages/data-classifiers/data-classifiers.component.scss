@@ -1,0 +1,32 @@
+.details-panel {
+  width: 420px;
+  min-width: 360px;
+  max-width: 520px;
+  padding: 16px;
+  border-left: 1px solid rgba(0,0,0,0.08);
+  background: var(--mdc-theme-background, #fff);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #424874;
+  font-size: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell, td.mat-cell {
+  padding: 8px 12px;
+}
+
