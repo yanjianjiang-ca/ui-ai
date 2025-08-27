@@ -1,0 +1,8 @@
+[
+  {"id":"1","name":"My First Test Classifier","sensitivity":"Highly Confidential","type":"Simple","policies":5,"scans":2,"createdBy":"jbrigs","createdAt":"2024/05/01 00:00 AM PDT","notes":"Test Rule"},
+  {"id":"2","name":"My Second Test Classifier","sensitivity":"Restricted","type":"Simple","policies":2,"scans":3,"createdBy":"aaruda","createdAt":"2024/05/01 00:00 AM PDT","notes":"Test Rule"},
+  {"id":"3","name":"My Third Test Classifier","sensitivity":"Internal","type":"Simple","policies":6,"scans":1,"createdBy":"lmiller","createdAt":"2024/05/01 00:00 AM PDT","notes":"Test Rule"},
+  {"id":"4","name":"My Fourth Test Classifier","sensitivity":"Public","type":"Simple","policies":1,"scans":1,"createdBy":"jsmith","createdAt":"2024/05/01 00:00 AM PDT","notes":"Test Rule"},
+  {"id":"5","name":"My Fifth Test Classifier","sensitivity":"Confidential","type":"Composite","policies":1,"scans":1,"createdBy":"swendy","createdAt":"2024/05/01 00:00 AM PDT","notes":"Test Rule"}
+]
+
