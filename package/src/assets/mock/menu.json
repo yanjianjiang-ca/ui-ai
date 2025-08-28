@@ -1,28 +1,33 @@
 {
   "items": [
+    { "displayName": "Dashboard", "iconName": "dashboard", "route": "/discovery/storages" },
     {
       "displayName": "Analytics",
       "iconName": "chart-bar",
       "children": [
-        { "displayName": "Summary", "iconName": "layout-grid-add", "route": "/analytics/summary" },
-        { "displayName": "Files", "iconName": "file", "route": "/analytics/files" },
-        { "displayName": "Scan Incidents", "iconName": "alert-triangle", "route": "/analytics/incidents" },
-        { "displayName": "Queries", "iconName": "search", "route": "/analytics/queries" }
+        { "displayName": "Summary", "iconName": "", "route": "/analytics/summary" },
+        { "displayName": "Files", "iconName": "", "route": "/analytics/files" },
+        { "displayName": "Scan Incidents", "iconName": "", "route": "/analytics/incidents" },
+        { "displayName": "Queries", "iconName": "", "route": "/analytics/queries" }
       ]
     },
     {
       "displayName": "Discovery",
       "iconName": "compass",
       "children": [
-        { "displayName": "Storages", "iconName": "database", "route": "/discovery/storages" },
-        { "displayName": "Identities", "iconName": "users", "route": "/discovery/identities" },
-        { "displayName": "Data Types", "iconName": "category", "route": "/discovery/data-types" },
-        { "displayName": "Logs & Reports", "iconName": "report", "route": "/discovery/logs-reports" },
-        { "displayName": "Fabric", "iconName": "settings", "route": "/discovery/fabric" },
-        { "displayName": "System", "iconName": "device-desktop", "route": "/discovery/system" },
-        { "displayName": "Notifications", "iconName": "bell", "route": "/discovery/notifications" }
+        { "displayName": "Scan", "iconName": "", "route": "/analytics/summary" },
+        { "displayName": "Polices", "iconName": "", "route": "/analytics/files" },
+        { "displayName": "Profiles", "iconName": "", "route": "/analytics/incidents" }
       ]
-    }
+    },
+    { "displayName": "Storages", "iconName": "database", "route": "/discovery/storages" },
+    { "displayName": "Data Classifiers", "iconName": "database", "route": "/Data/Classifiers" },
+    { "displayName": "Identities", "iconName": "users", "route": "/discovery/identities" },
+    { "displayName": "Data Types", "iconName": "category", "route": "/discovery/data-types" },
+    { "displayName": "Logs & Reports", "iconName": "report", "route": "/discovery/logs-reports" },
+    { "displayName": "Fabric", "iconName": "settings", "route": "/discovery/fabric" },
+    { "displayName": "System", "iconName": "device-desktop", "route": "/discovery/system" },
+    { "displayName": "Notifications", "iconName": "bell", "route": "/discovery/notifications" }
   ]
 }
 

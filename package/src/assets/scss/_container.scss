@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: auto !important;
+}
+
 body {
   font-family: $font-family;
   line-height: 1.334rem;
