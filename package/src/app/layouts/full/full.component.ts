@@ -15,7 +15,8 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
-import { navItems } from './sidebar/sidebar-data';
+import { NavItem } from './sidebar/nav-item/nav-item';
+import { MenuService } from 'src/app/services/menu.service';
 import { AppTopstripComponent } from './top-strip/topstrip.component';
 
 
@@ -41,7 +42,7 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
   encapsulation: ViewEncapsulation.None
 })
 export class FullComponent implements OnInit {
-  navItems = navItems;
+  navItems: NavItem[] = [];
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav;
@@ -64,6 +65,7 @@ export class FullComponent implements OnInit {
     private settings: CoreService,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
+    private menuService: MenuService,
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -88,7 +90,15 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.menuService.list().subscribe((items) => {
+      // Support {items: [...] } mock
+      const normalized = Array.isArray((items as unknown as any).items)
+        ? ((items as unknown as any).items as NavItem[])
+        : (items as NavItem[]);
+      this.navItems = normalized;
+    });
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
