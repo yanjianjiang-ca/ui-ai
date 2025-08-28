@@ -164,6 +164,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 200ms ease-in-out;
+            &.rotated {
+              transform: rotate(180deg);
+            }
           }
         }
       }

@@ -36,7 +36,7 @@ export class AppNavItemComponent implements OnChanges {
   ngOnChanges() {
     const url = this.navService.currentUrl();
     if (this.item.route && url) {
-      this.expanded = url.indexOf(`/${this.item.route}`) === 0;
+      this.expanded = url.indexOf(this.item.route) === 0;
       this.ariaExpanded = this.expanded;
     }
   }

@@ -19,7 +19,7 @@
         <span class="{{ item.chipClass }} p-x-8 p-y-4 item-chip f-w-500 rounded-pill ">{{ item.chipContent }}</span>
       </span>
       }
-    <mat-icon [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'">
+    <mat-icon [ngClass]="{ rotated: expanded }">
       expand_more
     </mat-icon>
   </span>

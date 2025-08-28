@@ -1,6 +1,6 @@
 {
   "items": [
-    { "displayName": "Dashboard", "iconName": "dashboard", "route": "/discovery/storages" },
+    { "displayName": "Dashboard", "iconName": "dashboard", "route": "/dashboard" },
     {
       "displayName": "Analytics",
       "iconName": "chart-bar",
@@ -21,7 +21,7 @@
       ]
     },
     { "displayName": "Storages", "iconName": "database", "route": "/discovery/storages" },
-    { "displayName": "Data Classifiers", "iconName": "database", "route": "/Data/Classifiers" },
+    { "displayName": "Data Classifiers", "iconName": "database", "route": "/dashboard/data-classifiers" },
     { "displayName": "Identities", "iconName": "users", "route": "/discovery/identities" },
     { "displayName": "Data Types", "iconName": "category", "route": "/discovery/data-types" },
     { "displayName": "Logs & Reports", "iconName": "report", "route": "/discovery/logs-reports" },
