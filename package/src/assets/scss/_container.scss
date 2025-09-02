@@ -7,13 +7,14 @@
 }
 
 html {
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 }
 
 body {
   font-family: $font-family;
   line-height: 1.334rem;
   overflow-x: hidden;
+  overflow-y: hidden;
   color: var(--mat-sys-on-background);
 }
 

@@ -30,3 +30,47 @@ th.mat-header-cell, td.mat-cell {
   padding: 8px 12px;
 }
 
+.classifiers-header {
+  padding: 8px 12px;
+}
+
+.breadcrumbs {
+  font-weight: 600;
+}
+
+.header-actions {
+  gap: 8px;
+}
+
+.sensitivity-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.sensitivity-high {
+  background: rgba(244, 67, 54, 0.12);
+  color: #C62828;
+}
+.sensitivity-restricted {
+  background: rgba(156, 39, 176, 0.12);
+  color: #6A1B9A;
+}
+.sensitivity-confidential {
+  background: rgba(255, 152, 0, 0.12);
+  color: #E65100;
+}
+.sensitivity-internal {
+  background: rgba(3, 169, 244, 0.12);
+  color: #01579B;
+}
+.sensitivity-public {
+  background: rgba(76, 175, 80, 0.12);
+  color: #1B5E20;
+}
+.sensitivity-default {
+  background: rgba(158, 158, 158, 0.12);
+  color: #424242;
+}

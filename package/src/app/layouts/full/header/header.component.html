@@ -3,9 +3,13 @@
   <app-branding></app-branding>
 
   <!-- Mobile Menu -->
-  
+
   <button mat-icon-button (click)="toggleMobileNav.emit()" class="d-flex d-lg-none justify-content-center">
     <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <button mat-icon-button (click)="toggleCollapsed.emit()" aria-label="Toggle sidebar">
+    <i-tabler class="d-flex" name="layout-sidebar"></i-tabler>
   </button>
 
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Notifications">

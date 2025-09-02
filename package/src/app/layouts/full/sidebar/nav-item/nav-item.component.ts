@@ -14,10 +14,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav-item',
-  imports: [TranslateModule, TablerIconsModule, MaterialModule, CommonModule],
+  imports: [TranslateModule, TablerIconsModule, MaterialModule, CommonModule, RouterModule],
   templateUrl: './nav-item.component.html',
   styleUrls: [],
 })
@@ -29,7 +30,8 @@ export class AppNavItemComponent implements OnChanges {
   expanded: any = false;
 
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
-  @Input() depth: any;
+  @Input() depth: any = 0;
+  @Input() collapsed: boolean = false;
 
   constructor(public navService: NavService, public router: Router) {}
 
@@ -42,13 +44,15 @@ export class AppNavItemComponent implements OnChanges {
   }
 
   onItemSelected(item: NavItem) {
-    if (!item.children || !item.children.length) {
-      this.router.navigate([item.route]);
+    const hasChildren = !!(item.children && item.children.length);
+    if (this.collapsed && hasChildren) {
+      return;
     }
-    if (item.children && item.children.length) {
+    if (!hasChildren) {
+      this.router.navigate([item.route]);
+    } else {
       this.expanded = !this.expanded;
     }
-    //scroll
     window.scroll({
       top: 0,
       left: 0,

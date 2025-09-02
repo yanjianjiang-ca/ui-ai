@@ -6,11 +6,13 @@
 <a mat-list-item (click)="onItemSelected(item)" [ngClass]="{
     activeMenu: item.route ? router.isActive(item.route, true) : false,
     expanded: expanded,
-    disabled: item.disabled
-  }" class="menu-list-item">
+    disabled: item.disabled,
+    'submenu-item': depth > 0
+  }" class="menu-list-item" [matTooltip]="collapsed ? item.displayName : ''" matTooltipPosition="right" [matMenuTriggerFor]="collapsed && item.children && item.children.length ? childMenu : null" #trigger="matMenuTrigger" (mouseenter)="collapsed && item.children?.length ? trigger.openMenu() : null">
   <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
+  @if(depth > 0) { <span class="submenu-bullet" aria-hidden="true"></span> }
   <span class="hide-menu">{{ item.displayName }}</span>
-  
+
   @if(item.children && item.children.length) {
   <span class="arrow-icon" fxFlex>
     <span fxFlex></span>
@@ -25,13 +27,24 @@
   </span>
   }
 </a>
+
+<!-- Collapsed submenu as overlay menu -->
+<mat-menu #childMenu="matMenu" xPosition="after" yPosition="below" [hasBackdrop]="false" (mouseleave)="trigger.closeMenu()">
+  @for(child of item.children; track child) {
+    <button mat-menu-item [routerLink]="[child.route]" (click)="$event.stopPropagation()">
+      <i-tabler class="m-r-8" [name]="child.iconName || 'point'" *ngIf="child.iconName"></i-tabler>
+      <span>{{ child.displayName }}</span>
+    </button>
+  }
+</mat-menu>
 }
 
 <!-- external Link -->
 
 @if(!item.navCap && item.external) {
-<mat-list-item (click)="openExternalLink(item.route)" class="menu-list-item" target="_blank">
+<mat-list-item (click)="openExternalLink(item.route)" class="menu-list-item" target="_blank" [matTooltip]="collapsed ? item.displayName : ''" matTooltipPosition="right" [ngClass]="{'submenu-item': depth > 0}">
   <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
+  @if(depth > 0) { <span class="submenu-bullet" aria-hidden="true"></span> }
   <span class="hide-menu">{{ item.displayName }} </span>
   @if(item.chip) {
   <span>
@@ -43,6 +56,6 @@
 
 <!-- children -->
 @if(expanded) { @for(child of item.children; track child) {
-<app-nav-item [item]="child" (click)="onSubItemSelected(child)" [depth]="depth + 1">
+<app-nav-item [item]="child" (click)="onSubItemSelected(child)" [depth]="depth + 1" [collapsed]="collapsed">
 </app-nav-item>
 } }

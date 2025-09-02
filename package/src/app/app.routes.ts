@@ -25,6 +25,16 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'analytics',
+        loadChildren: () =>
+          import('./pages/analytics/analytics.routes').then((m) => m.AnalyticsRoutes),
+      },
+      {
+        path: 'discovery',
+        loadChildren: () =>
+          import('./pages/discovery/discovery.routes').then((m) => m.DiscoveryRoutes),
+      },
+      {
         path: 'extra',
         loadChildren: () =>
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),

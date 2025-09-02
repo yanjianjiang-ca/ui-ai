@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from '../../material.module';
+import { TablerIconsModule } from 'angular-tabler-icons';
 import { DataClassifiersService, DataClassifier } from '../../services/data-classifiers.service';
 import { DataClassifierDetailDialogComponent } from './data-classifier-detail.dialog';
 
@@ -18,7 +19,7 @@ interface ClassificationDetailSection {
 @Component({
   selector: 'app-data-classifiers',
   standalone: true,
-  imports: [CommonModule, FormsModule, MaterialModule],
+  imports: [CommonModule, FormsModule, MaterialModule, TablerIconsModule],
   templateUrl: './data-classifiers.component.html',
   styleUrls: ['./data-classifiers.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -28,6 +29,7 @@ export class DataClassifiersComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<DataClassifier>([]);
   loading = signal<boolean>(true);
+  lastLoaded = signal<Date | null>(null);
 
   query = signal('');
   selectedId = signal<string | null>(null);
@@ -38,12 +40,22 @@ export class DataClassifiersComponent implements OnInit, AfterViewInit {
 
   constructor(private readonly svc: DataClassifiersService, private readonly dialog: MatDialog) {}
 
-  ngOnInit(): void {
+  private load(): void {
+    this.loading.set(true);
     this.svc.list().subscribe(rows => {
       this.dataSource.data = rows;
       this.loading.set(false);
+      this.lastLoaded.set(new Date());
       this.applyFilter(this.query());
     });
+  }
+
+  refresh(): void {
+    this.load();
+  }
+
+  ngOnInit(): void {
+    this.load();
     this.dataSource.filterPredicate = (r, filter) => {
       const term = filter.trim().toLowerCase();
       return (
@@ -53,6 +65,16 @@ export class DataClassifiersComponent implements OnInit, AfterViewInit {
         r.createdBy.toLowerCase().includes(term)
       );
     };
+  }
+
+  sensitivityClass(s: string): string {
+    const v = (s || '').toLowerCase();
+    if (v.includes('high')) return 'sensitivity-high';
+    if (v.includes('restricted')) return 'sensitivity-restricted';
+    if (v.includes('confidential')) return 'sensitivity-confidential';
+    if (v.includes('internal')) return 'sensitivity-internal';
+    if (v.includes('public')) return 'sensitivity-public';
+    return 'sensitivity-default';
   }
 
   ngAfterViewInit(): void {
@@ -79,5 +101,20 @@ export class DataClassifiersComponent implements OnInit, AfterViewInit {
   clearSelection() {
     this.selectedId.set(null);
   }
-}
 
+  onAdd() {
+    const now = new Date();
+    const newItem: DataClassifier = {
+      id: String(now.getTime()),
+      name: 'New Data Classifier',
+      sensitivity: 'Internal',
+      type: 'Simple',
+      policies: 0,
+      scans: 0,
+      createdBy: 'system',
+      createdAt: now.toISOString(),
+      notes: ''
+    } as DataClassifier;
+    this.dialog.open(DataClassifierDetailDialogComponent, { data: newItem, width: '640px' });
+  }
+}

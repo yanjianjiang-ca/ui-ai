@@ -1,10 +1,10 @@
 <!-- <app-topstrip></app-topstrip> -->
-<div class="blue_theme light-theme" autosize autoFocus dir="ltr">
+<div class="blue_theme light-theme" [class.sidebar-collapsed]="options.sidenavCollapsed" autosize autoFocus dir="ltr">
   <!-- ============================================================== -->
   <!-- VerticalHeader -->
   <!-- ============================================================== -->
 
-  <app-header [showToggle]="!isOver" (toggleMobileNav)="sidenav.toggle()"></app-header>
+  <app-header [showToggle]="!isOver" (toggleMobileNav)="sidenav.toggle()" (toggleCollapsed)="toggleCollapsed()"></app-header>
 
   <mat-sidenav-container class="mainWrapper">
     <!-- ============================================================== -->
@@ -17,7 +17,7 @@
         <ng-scrollbar class="position-relative" style="height: 100%">
           <mat-nav-list class="sidebar-list">
             @for(item of navItems; track item) {
-            <app-nav-item [item]="item" (notify)="sidenav.toggle()">
+            <app-nav-item [item]="item" [collapsed]="options.sidenavCollapsed" (notify)="sidenav.toggle()">
             </app-nav-item>
             }
           </mat-nav-list>
